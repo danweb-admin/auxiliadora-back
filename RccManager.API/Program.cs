@@ -60,6 +60,7 @@ builder.Services.AddCors(options =>
                 "http://gerenciador.rcc-londrina.online",
                 "https://gerenciador.rcc-londrina.online",
                 "http://localhost:4200",
+                "http://52.73.46.82:19000",
                 "http://localhost:4300",
                 "http://192.168.15.5:4200",
                 "http://161.35.255.131:32597"
