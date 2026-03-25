@@ -56,9 +56,9 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "https://eventos.rcc-londrina.online",
-                "https://checkin.rcc-londrina.online",
+                "https://checkin.auxiliadoraonline.com.br",
                 "http://gerenciador.rcc-londrina.online",
-                "https://gerenciador.rcc-londrina.online",
+                "https://gerenciador.auxiliadoraonline.com.br",
                 "http://localhost:4200",
                 "https://eventos.auxiliadoraonline.com.br",
                 "http://localhost:4300",
