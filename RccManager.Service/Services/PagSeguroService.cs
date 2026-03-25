@@ -77,7 +77,7 @@ namespace RccManager.Service.Services
                 },
                 notification_urls = new[]
                 {
-                    "https://backend.rcc-londrina.online/api/webhook"
+                    "https://backend.auxiliadoraonline.com.br/api/webhook"
                 }
             };
 
@@ -146,7 +146,7 @@ namespace RccManager.Service.Services
 
                 notification_urls = new[]
                 {
-                    "https://backend.rcc-londrina.online/api/webhook"
+                    "https://backend.auxiliadoraonline.com.br/api/webhook"
                 },
 
                 payment_methods = new[]

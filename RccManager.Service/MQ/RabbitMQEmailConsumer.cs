@@ -146,8 +146,8 @@ namespace RccManager.Service.MQ
                     throw new InvalidOperationException("Variáveis de ambiente SMTP não configuradas corretamente");
                 }
 
-                var nomeOrganizacao = "Renovação Carismática Católica Arquidiocese de Londrina";
-                var logoUrl = "https://res.cloudinary.com/dgcpvxvcj/image/upload/v1763292856/Fotos%20Eventos/Rcc.jpg";
+                var nomeOrganizacao = "Paróquia Nossa Senhora Auxiliadora";
+                var logoUrl = "https://res.cloudinary.com/dgcpvxvcj/image/upload/v1774405275/Fotos%20Eventos/auxiliadora.png";
 
                 string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "email-confirmacao.html");
                 
@@ -160,7 +160,7 @@ namespace RccManager.Service.MQ
 
                 Utils.GerarQrCodePNG(inscricao.CodigoInscricao);
 
-                var urlQrCode = $"https://backend.rcc-londrina.online/qrcodes/{inscricao.CodigoInscricao}.png";
+                var urlQrCode = $"https://backend.auxiliadoraonline.com.br/qrcodes/{inscricao.CodigoInscricao}.png";
 
                 string html = await File.ReadAllTextAsync(templatePath);
 
@@ -190,7 +190,7 @@ namespace RccManager.Service.MQ
 
                 var message = new MailMessage
                 {
-                    From = new MailAddress(senderEmail,"RCC Londrina - Cadastramento"),
+                    From = new MailAddress(senderEmail,"Paróquia Nossa Senhora Auxiliadora - Eventos"),
                     Subject = $"Pagamento confirmado! Seu ingresso está disponível - {inscricao.NomeEvento} - {inscricao.CodigoInscricao}",
                     Body = html,
                     IsBodyHtml = true
