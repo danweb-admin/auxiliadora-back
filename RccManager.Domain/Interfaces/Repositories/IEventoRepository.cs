@@ -17,6 +17,7 @@ namespace RccManager.Domain.Interfaces.Repositories
         Task<Evento> Update(Evento evento);
         Task<IEnumerable<Inscricao>> GetAllInscricoesByEvento(Guid eventoId);
         Task<IEnumerable<EventoCampos>> GetCamposByEvento(Guid eventoId);
+        Task<int> GetLimiteParticipantes(Guid eventoId);
 
 
     }

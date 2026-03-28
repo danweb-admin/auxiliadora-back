@@ -276,6 +276,49 @@ namespace RccManager.API.Controllers
 
         }
 
+        [HttpGet("verifica-limite-participantes")]
+        public async Task<IActionResult> VerificaLimiteParticipantes([FromQuery] Guid eventoId)
+        {
+            try
+            {
+                var inscricao_ = await _eventoService.VerificaLimiteParticipante(eventoId);
+
+                return Ok(inscricao_);
+            }
+            catch (ValidateByNameException ex)
+            {
+                return BadRequest(new Models.ValidationResult { Code = "400", Message = ex.Message, PropertyName = ex.Source });
+            }
+            catch (WebException ex)
+            {
+
+                return BadRequest(new Models.ValidationResult { Code = "400", Message = ex.Message, PropertyName = ex.Source });
+            }
+
+        }
+
+        [HttpGet("remover-inscricao")]
+        public async Task<IActionResult> RemoverInscricao([FromQuery] string codigoInscricao)
+        {
+            try
+            {
+                var inscricao_ = await _eventoService.RemoverInscricao(codigoInscricao);
+
+                return Ok(inscricao_);
+            }
+            catch (ValidateByNameException ex)
+            {
+                return BadRequest(new Models.ValidationResult { Code = "400", Message = ex.Message, PropertyName = ex.Source });
+            }
+            catch (WebException ex)
+            {
+
+                return BadRequest(new Models.ValidationResult { Code = "400", Message = ex.Message, PropertyName = ex.Source });
+            }
+
+        }
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] EventoDto eventoViewModel)
         {

@@ -159,5 +159,15 @@ namespace RccManager.Infra.Repositories
             return await context.EventoCampos.Where(x => x.EventoId == eventoId)
                 .OrderBy(x => x.Ordem).ToListAsync();
         }
+
+        public async Task<int> GetLimiteParticipantes(Guid eventoId)
+        {
+            var list = new List<string> { "pagamento_confirmado","isento"};
+
+            return await context.Inscricoes.
+                Where(x => list.Contains(x.Status) && x.EventoId == eventoId).CountAsync();
+             
+               
+        }
     }
 }

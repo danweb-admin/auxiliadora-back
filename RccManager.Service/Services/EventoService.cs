@@ -106,9 +106,6 @@ namespace RccManager.Domain.Services
             {
                 Console.WriteLine(ex);
             }
-            
-
-            
 
             return new HttpResponse { Message = "Evento adicionado com sucesso.", StatusCode = (int)HttpStatusCode.OK };
 
@@ -208,10 +205,10 @@ namespace RccManager.Domain.Services
             if (verificaCPF != null && verificaCPF.Status == "pagamento_confirmado")
                 throw new WebException("CPF já está cadastrado no Evento!");
 
-            if (verificaCPF != null && verificaCPF.Status == "pendente")
-            {
-                return _mapper.Map<InscricaoDto>(verificaCPF);
-            }
+            //if (verificaCPF != null && verificaCPF.Status == "pendente")
+            //{
+            //    return _mapper.Map<InscricaoDto>(verificaCPF);
+            //}
 
             inscricao.Email = inscricao.Email.Trim();
 
@@ -439,6 +436,21 @@ namespace RccManager.Domain.Services
             return ValidationResult.Success;
         }
 
+        public async Task<ValidationResult> RemoverInscricao(string codigoInscricao)
+        {
+            var inscricao = await _inscricaoRepository.GetByCodigo(codigoInscricao);
+
+            if (inscricao == null)
+                throw new WebException("Inscrição não encontrado!");
+
+            var result = await _inscricaoRepository.Delete(inscricao.Id);
+
+            if (!result)
+                throw new WebException("Houve um problema para isentar a Inscrição!");
+
+            return ValidationResult.Success;
+        }
+
         public async Task<IEnumerable<InscricaoDto>> GetAllInscricoesByEvento(Guid eventoId)
         {
             var lista = await _eventoRepository.GetAllInscricoesByEvento(eventoId);
@@ -468,6 +480,25 @@ namespace RccManager.Domain.Services
             return new HttpResponse { Message = "Checkin efetuado com sucesso.", StatusCode = (int)HttpStatusCode.OK };
 
 
+        }
+
+        public async Task<bool> VerificaLimiteParticipante(Guid eventoId)
+        {
+            var evento = await _eventoRepository.GetById(eventoId);
+            var participantesConfirmados = await _eventoRepository.GetLimiteParticipantes(eventoId);
+
+            if (evento.LimiteParticipantes == 0 )
+                return true;
+
+            if (participantesConfirmados >= evento.LimiteParticipantes)
+            {
+                evento.Status = "Encerradas";
+                await _eventoRepository.Update(evento);
+
+                return false;
+            }
+                
+            return true;
         }
 
         //  WEBHOOK
