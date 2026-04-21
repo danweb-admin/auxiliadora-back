@@ -149,6 +149,9 @@ namespace RccManager.Domain.Services
         {
             var inscricao = await _inscricaoRepository.GetByInscricao(codigoInscricao);
 
+            if (inscricao == null)
+                return "PENDENTE";
+
             if (inscricao.Status == "pagamento_confirmado")
                 return "PAGO";
             return "PENDENTE";
