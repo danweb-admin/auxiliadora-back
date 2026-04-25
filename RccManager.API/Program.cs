@@ -66,8 +66,8 @@ builder.Services.AddCors(options =>
                 "http://161.35.255.131:32597"
             )
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+            .AllowAnyMethod();
+            //.AllowCredentials();
             // REMOVA AllowCredentials por enquanto
     });
 });
