@@ -39,7 +39,7 @@ namespace RccManager.Infra.Repositories
 
         public async Task<IEnumerable<Inscricao>> GetAll(Guid eventoId)
         {
-            return await dbSet.Where(x => x.EventoId == eventoId).ToListAsync();
+            return await dbSet.Where(x => x.EventoId == eventoId).OrderByDescending(x => x.CreatedAt).ToListAsync();
         }
 
         public async Task<IEnumerable<Inscricao>> GetAllPending(DateTime dataBase)
