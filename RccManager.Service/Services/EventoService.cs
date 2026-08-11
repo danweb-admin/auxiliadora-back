@@ -145,7 +145,16 @@ namespace RccManager.Domain.Services
 
         public async Task<EventoDto> GetById(Guid id)
         {
-            return _mapper.Map<EventoDto>(await _eventoRepository.GetById(id));
+            var evento = await _eventoRepository.GetById(id);
+
+            if (evento == null)
+                return null;
+
+            evento.Inscricoes = evento.Inscricoes
+                .OrderByDescending(x => x.CreatedAt)
+                .ToList();
+
+            return _mapper.Map<EventoDto>(evento);
         }
 
         public async Task<EventoDto> GetSlug(string slug)
