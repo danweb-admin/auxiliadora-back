@@ -154,7 +154,7 @@ namespace RccManager.Domain.Dtos.Evento
         public DateTime? DataLiberacao { get; set; }
         public string NSU { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime DataPagamento { get; set; }
+        public DateTime? DataPagamento { get; set; }
         public List<InscricaoCampoValoresDto> CamposDinamicos { get; set; }
 
         public InscricaoDto()
