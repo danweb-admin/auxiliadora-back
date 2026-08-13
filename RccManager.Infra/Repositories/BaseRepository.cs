@@ -73,6 +73,8 @@ namespace RccManager.Infra.Repositories
 
                 dbSet.Add(entity);
 
+                Console.WriteLine("ENTIDADE: " + entity);
+
                 await context.SaveChangesAsync();
 
                 return entity;
