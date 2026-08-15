@@ -151,7 +151,7 @@ namespace RccManager.Domain.Services
                 return null;
 
             evento.Inscricoes = evento.Inscricoes
-                .OrderByDescending(x => x.CreatedAt)
+                .OrderBy(x => x.CreatedAt)
                 .ToList();
 
             return _mapper.Map<EventoDto>(evento);
