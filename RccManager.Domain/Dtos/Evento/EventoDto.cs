@@ -161,8 +161,12 @@ namespace RccManager.Domain.Dtos.Evento
         {
             CamposDinamicos = new List<InscricaoCampoValoresDto>();
         }
+    }
 
-
+    public class InscricaoCampoValorDto
+    {
+        public string Label { get; set; }
+        public string Valor { get; set; }
     }
 }
 

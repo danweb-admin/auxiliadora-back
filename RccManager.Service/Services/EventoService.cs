@@ -673,6 +673,26 @@ namespace RccManager.Domain.Services
             return await _eventoRepository.ExportarInscricoes(eventoId);
         }
 
+        public async Task<List<InscricaoCampoValorDto>> GetRespostasByInscricao(Guid inscricaoId)
+        {
+
+            var inscricao = await _inscricaoRepository.GetById(inscricaoId);
+
+            var retorno = new List<InscricaoCampoValorDto> {
+                new InscricaoCampoValorDto { Label = "Nome", Valor = inscricao.Nome },
+                new InscricaoCampoValorDto { Label = "CPF", Valor = inscricao.Cpf },
+                new InscricaoCampoValorDto { Label = "Telefone", Valor = inscricao.Telefone },
+                new InscricaoCampoValorDto { Label = "Email", Valor = inscricao.Email },
+            };
+
+            var valores = await _eventoRepository.GetValoresByInscricao(inscricaoId);
+
+            foreach (var item in valores)
+                retorno.Add(item);
+            
+            return retorno;
+        }
+
         public byte[] GerarExcel(DataTable tabela)
         {
             using var workbook = new XLWorkbook();

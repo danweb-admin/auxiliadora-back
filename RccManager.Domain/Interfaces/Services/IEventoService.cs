@@ -15,6 +15,7 @@ namespace RccManager.Domain.Interfaces.Services
         Task<EventoDto> GetSlug(string slug);
         Task<EventoDto> GetById(Guid id);
         Task<IEnumerable<CamposFormularioDto>> GetCamposByEvento(Guid eventoId);
+        Task<List<InscricaoCampoValorDto>> GetRespostasByInscricao(Guid inscricaoId);
         Task<HttpResponse> Create(EventoDto dto, Guid userId);
         Task<HttpResponse> Update(EventoDto dto, Guid id);
         Task<decimal> LoteInscricao(Guid id);

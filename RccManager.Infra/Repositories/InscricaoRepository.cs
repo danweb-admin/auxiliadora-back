@@ -24,6 +24,13 @@ namespace RccManager.Infra.Repositories
             return await dbSet.AnyAsync(x => x.CodigoInscricao == codigoInscricao);
         }
 
+        public async Task<Inscricao> GetById(Guid id)
+        {
+            
+            return await dbSet.SingleOrDefaultAsync(x => x.Id.Equals(id));
+            
+        }
+
         public async Task<Inscricao> CheckByCpf(Guid eventId, string cpf)
         {
             

@@ -11,6 +11,7 @@ namespace RccManager.Domain.Entities
         public List<string>? Opcoes { get; set; }
         public int Ordem { get; set; }
         public Evento Evento { get; set; }
+        public InscricaoCampoValores InscricaoCampoValor { get; set; }
     }
 }
 

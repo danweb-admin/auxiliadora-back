@@ -12,7 +12,7 @@ namespace RccManager.API.Controllers
 {
     [ApiController]
     [Route("api/v1/eventos")]
-    [Authorize]
+    //[Authorize]
     public class EventosController : ControllerBase
     {
         private readonly IEventoService _eventoService;
@@ -117,9 +117,17 @@ namespace RccManager.API.Controllers
         {
             var camposFormularios = await _eventoService.GetCamposByEvento(eventoId);
 
-            
-
             return Ok(camposFormularios);
+        }
+
+        [HttpGet("{inscricaoId}/respostas")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> InscricaoResposta(Guid inscricaoId)
+        {
+            var respostas = await _eventoService.GetRespostasByInscricao(inscricaoId);
+
+            return Ok(respostas);
         }
 
         [HttpPost]

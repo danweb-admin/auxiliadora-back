@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using RccManager.Domain.Dtos.Evento;
 using RccManager.Domain.Entities;
 using RccManager.Domain.Helpers;
 using RccManager.Domain.Interfaces.Repositories;
@@ -199,5 +201,31 @@ namespace RccManager.Infra.Repositories
 
             return dt;
         }
+
+        public async Task<List<InscricaoCampoValorDto>> GetValoresByInscricao(Guid inscricaoId)
+        {
+            return await context.InscricaoCampoValores
+                .Where(icv => icv.InscricaoId == inscricaoId)
+                .Join(
+                    context.EventoCampos,
+                    icv => icv.EventoCampoId,
+                    ec => ec.Id,
+                    (icv, ec) => new
+                    {
+                        ec.Label,
+                        icv.Valor,
+                        ec.Ordem
+                    }
+                )
+                .OrderBy(x => x.Ordem)
+                .Select(x => new InscricaoCampoValorDto
+                {
+                    Label = x.Label,
+                    Valor = x.Valor
+                })
+                .ToListAsync();
+        }
+
+        
     }
 }

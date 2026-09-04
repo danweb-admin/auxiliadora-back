@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using RccManager.Domain.Dtos.Evento;
 using RccManager.Domain.Entities;
 
 namespace RccManager.Domain.Interfaces.Repositories
@@ -20,5 +21,6 @@ namespace RccManager.Domain.Interfaces.Repositories
         Task<IEnumerable<EventoCampos>> GetCamposByEvento(Guid eventoId);
         Task<int> GetLimiteParticipantes(Guid eventoId);
         Task<DataTable> ExportarInscricoes(Guid eventoId);
+        Task<List<InscricaoCampoValorDto>> GetValoresByInscricao(Guid inscricaoId);
     }
 }
