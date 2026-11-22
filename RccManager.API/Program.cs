@@ -212,12 +212,14 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRouting();
 
+app.UseCors("AppCors");
+
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
     Authorization = new[] { new HangfireAuthorizationFilter() }
 });
 
-app.UseCors("AppCors");
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -226,8 +228,24 @@ app.Use(async (context, next) =>
 {
     var brasilHora = DateTime.UtcNow.AddHours(-3);
 
-    Console.WriteLine($"[{brasilHora:yyyy-MM-dd HH:mm:ss}] Requisição: {context.Request.Method} {context.Request.Path}");
-    await next();
+    Console.WriteLine(
+        $"[{brasilHora:yyyy-MM-dd HH:mm:ss}] INÍCIO: " +
+        $"{context.Request.Method} {context.Request.Path}");
+
+    try
+    {
+        await next();
+
+        Console.WriteLine(
+            $"[{brasilHora:yyyy-MM-dd HH:mm:ss}] FIM: " +
+            $"StatusCode: {context.Response.StatusCode}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"ERRO NA REQUISIÇÃO: {ex}");
+
+        throw;
+    }
 });
 
 app.MapControllers();
