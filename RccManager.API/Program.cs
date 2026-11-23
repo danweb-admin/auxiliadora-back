@@ -228,16 +228,14 @@ app.Use(async (context, next) =>
 {
     var brasilHora = DateTime.UtcNow.AddHours(-3);
 
-    Console.WriteLine(
-        $"[{brasilHora:yyyy-MM-dd HH:mm:ss}] INÍCIO: " +
-        $"{context.Request.Method} {context.Request.Path}");
+    
 
     try
     {
         await next();
 
         Console.WriteLine(
-            $"[{brasilHora:yyyy-MM-dd HH:mm:ss}] FIM: " +
+            $"[{brasilHora:yyyy-MM-dd HH:mm:ss}]: " +
             $"StatusCode: {context.Response.StatusCode}");
     }
     catch (Exception ex)
