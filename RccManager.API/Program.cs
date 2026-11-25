@@ -234,9 +234,10 @@ app.Use(async (context, next) =>
     {
         await next();
 
-        Console.WriteLine(
-            $"[{brasilHora:yyyy-MM-dd HH:mm:ss}]: " +
-            $"StatusCode: {context.Response.StatusCode}");
+        Console.WriteLine($"[{brasilHora:yyyy-MM-dd HH:mm:ss}] Requisição: {context.Request.Method} {context.Request.Path} - StatusCode: {context.Response.StatusCode}");
+
+
+   
     }
     catch (Exception ex)
     {
